@@ -44,7 +44,7 @@ int main() {
         right = 0;
         wrong = 0;
         printf("Enter a four-digit number: ");
-        scanf("%s", userInput);
+        scanf("%4s", userInput);
 
         if (isNumber(userInput) || checkUniqueness(userInput))
             continue;
