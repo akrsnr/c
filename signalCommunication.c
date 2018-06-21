@@ -133,7 +133,12 @@ int main()
 
 
         fprintf(stderr, "parent is waiting\n");
+        /*
+                sigsuspend, how it returnsi its work principle
+                https://stackoverflow.com/a/15284248/4990642
+        */
         sigsuspend(&parentUSR1Mask);
+        // after returning from sigsuspend, still all signals blocked here cuz of restoration of signal mask
         fprintf(stderr, "parent is running\n");
 
 
