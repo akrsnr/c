@@ -90,7 +90,10 @@ int main()
     saUSR1.sa_handler = sigusr1;
     sigaction(SIGUSR1, &saUSR1, 0);
 
-
+    // let the child assert signal handlers by using sigaction()
+    // then let parent wake up by sending SIGUSR1 signal
+    // actually it's critical section for child until unblocking (by using SIG_SETMASK &prevMask) firstly 
+    // and then blocking parent until waking up
     sigprocmask(SIG_BLOCK, &allBlockedMask, &prevMask);
 
 
@@ -138,8 +141,12 @@ int main()
                 https://stackoverflow.com/a/15284248/4990642
         */
         sigsuspend(&parentUSR1Mask);
-        // after returning from sigsuspend, still all signals blocked here cuz of restoration of signal mask
+        // after returning from sigsuspend, 
+        // still all signals blocked here cuz of restoration of signal mask
         fprintf(stderr, "parent is running\n");
+        
+        // sleep(5);
+        // try to send ctrl c ctrl z etc. signals they are already blocked
 
 
         fprintf(stderr, "\nPARENT: sending SIGHUP\n");
