@@ -80,6 +80,14 @@ int main()
     saTSTP.sa_handler = sigtstp;
     sigemptyset(&saTSTP.sa_mask);
     sigfillset(&saTSTP.sa_mask);
+    
+   /*   ᴧ 
+        |
+        |
+        the three of masks are filled because
+        we don't want signals to interrupt their handlers
+        even per se so
+   */
 
 
 
