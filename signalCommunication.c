@@ -87,6 +87,9 @@ int main()
         the three of masks are filled because
         we don't want signals to interrupt their handlers (per se)
         or the other handlers
+        
+        En passant, just filling is adequate, 
+        there is no need to empty them priorly
    */
 
 
