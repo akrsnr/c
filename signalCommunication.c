@@ -1,3 +1,6 @@
+// My synchronization workout of
+// https://users.cs.cf.ac.uk/Dave.Marshall/C/node24.html
+
 #include <stdio.h>
 #include <signal.h>
 #include <unistd.h>
