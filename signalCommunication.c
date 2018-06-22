@@ -25,7 +25,8 @@ char const * die = "CHILD: My DADDY has Killed me!!!\n";
 int dieLen;
 void sigtstp(int x) {
     write(STDERR_FILENO, die, dieLen);
-    _exit(111);
+    _Exit(111);
+
 }
 
 
@@ -80,17 +81,17 @@ int main()
     saTSTP.sa_handler = sigtstp;
     sigemptyset(&saTSTP.sa_mask);
     sigfillset(&saTSTP.sa_mask);
-    
-   /*   ᴧ 
-        |
-        |
-        the three of masks are filled because
-        we don't want signals to interrupt their handlers (per se)
-        or the other handlers
-        
-        En passant, just filling is adequate, 
-        there is no need to empty them priorly
-   */
+
+    /*   ᴧ
+         |
+         |
+         the three of masks are filled because
+         we don't want signals to interrupt their handlers (per se)
+         or the other handlers
+
+         En passant, just filling is adequate,
+         there is no need to empty them priorly
+    */
 
 
 
@@ -103,7 +104,7 @@ int main()
 
     // let the child assert signal handlers by using sigaction()
     // then let parent wake up by sending SIGUSR1 signal
-    // actually it's critical section for child until unblocking (by using SIG_SETMASK &prevMask) firstly 
+    // actually it's critical section for child until unblocking (by using SIG_SETMASK &prevMask) firstly
     // and then blocking parent until waking up
     sigprocmask(SIG_BLOCK, &allBlockedMask, &prevMask);
 
@@ -138,7 +139,7 @@ int main()
         sigsuspend(&sigintSet);
         sigsuspend(&sigtstpSet);
 
-
+        return 111;
     }
     else {
         /* parent */
@@ -152,10 +153,10 @@ int main()
                 https://stackoverflow.com/a/15284248/4990642
         */
         sigsuspend(&parentUSR1Mask);
-        // after returning from sigsuspend, 
+        // after returning from sigsuspend,
         // still all signals blocked here cuz of restoration of signal mask
         fprintf(stderr, "parent is running\n");
-        
+
         // sleep(5);
         // try to send ctrl c ctrl z etc. signals they are already blocked
 
@@ -169,9 +170,13 @@ int main()
         fprintf(stderr, "\nPARENT: sending SIGTSTP\n\n");
         kill(pid, SIGTSTP);
 
-        wait(0);
-    }
 
+        int status;
+        wait(&status);
+        if (WIFEXITED(status)){
+            int returned = WEXITSTATUS(status);
+            fprintf(stderr, "\nPARENT: child exited normally with status %d\n",returned);
+        }
+    }
     return 0;
 }
-
