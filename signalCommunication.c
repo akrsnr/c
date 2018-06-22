@@ -139,7 +139,6 @@ int main()
         sigsuspend(&sigintSet);
         sigsuspend(&sigtstpSet);
 
-        return 111;
     }
     else {
         /* parent */
