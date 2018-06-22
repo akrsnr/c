@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <signal_functions.h>
 
 char const * hupMsg = "CHILD: I have received a SIGHUP\n";
 int hupMsgLen;
@@ -132,8 +133,12 @@ int main()
 
         fprintf(stderr, "child now UNblocked \n");
 
-        
-        /* here, I want to receive signals in turn */
+        /*
+        sleep(1);
+        printPendingSigs(stderr, "pending");
+        sleep(1);
+        */
+
         sigsuspend(&sighupSet);
         sigsuspend(&sigintSet);
         sigsuspend(&sigtstpSet);
@@ -152,6 +157,7 @@ int main()
         sigsuspend(&sigtstpSet);
          */
 
+        /* here, I want to receive signals in turn */
 
 
         // Instead, I want to be here again
@@ -162,7 +168,7 @@ int main()
     else {
         /* parent */
 
-        //usleep(500);
+        // usleep(500);
         fprintf(stderr, "parent pid %i\n", getpid());
 
 
