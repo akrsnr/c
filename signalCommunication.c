@@ -1,3 +1,4 @@
+// https://github.com/akrsnr/c/blob/master/signalCommunication.c
 // My synchronization workout of
 // https://users.cs.cf.ac.uk/Dave.Marshall/C/node24.html
 
@@ -6,7 +7,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
-
 
 char const * hupMsg = "CHILD: I have received a SIGHUP\n";
 int hupMsgLen;
@@ -25,8 +25,7 @@ char const * die = "CHILD: My DADDY has Killed me!!!\n";
 int dieLen;
 void sigtstp(int x) {
     write(STDERR_FILENO, die, dieLen);
-    _Exit(111);
-
+    // _exit (111);
 }
 
 
@@ -48,7 +47,7 @@ int main()
 
     int         pid;
     sigset_t    allBlockedMask, prevMask, parentUSR1Mask,
-                sighupSet, sigintSet, sigtstpSet;
+        sighupSet, sigintSet, sigtstpSet;
 
     sigfillset(&sighupSet);
     sigdelset(&sighupSet, SIGHUP);
@@ -132,16 +131,38 @@ int main()
         kill(getppid(), SIGUSR1);
 
         fprintf(stderr, "child now UNblocked \n");
-        sigprocmask(SIG_SETMASK, &prevMask, 0);
 
-        /* here, I want to receive signals in turn */
+
         sigsuspend(&sighupSet);
         sigsuspend(&sigintSet);
         sigsuspend(&sigtstpSet);
 
+        sigprocmask(SIG_SETMASK, &prevMask, 0);
+
+        //     <----->
+
+        /*
+          ** If the sigsuspends were here,
+                signals might be caught  <--> here
+                and it gives rise to block parent forever
+                until the signals come again, <--> not atomic place
+        sigsuspend(&sighupSet);
+        sigsuspend(&sigintSet);
+        sigsuspend(&sigtstpSet);
+         */
+
+        /* here, I want to receive signals in turn */
+
+
+        // Instead, I want to be here again
+        fprintf(stderr, "I'm child I'm here");
+        _exit(111);
+
     }
     else {
         /* parent */
+
+        //usleep(500);
         fprintf(stderr, "parent pid %i\n", getpid());
 
 
