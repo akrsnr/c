@@ -132,7 +132,8 @@ int main()
 
         fprintf(stderr, "child now UNblocked \n");
 
-
+        
+        /* here, I want to receive signals in turn */
         sigsuspend(&sighupSet);
         sigsuspend(&sigintSet);
         sigsuspend(&sigtstpSet);
@@ -151,7 +152,6 @@ int main()
         sigsuspend(&sigtstpSet);
          */
 
-        /* here, I want to receive signals in turn */
 
 
         // Instead, I want to be here again
