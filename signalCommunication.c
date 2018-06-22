@@ -142,7 +142,6 @@ int main()
     }
     else {
         /* parent */
-        usleep(500);
         fprintf(stderr, "parent pid %i\n", getpid());
 
 
