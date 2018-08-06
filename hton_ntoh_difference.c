@@ -25,7 +25,7 @@ int main()
     uint32_t inMemory   = 0x04010203;
     uint32_t normal     = 0x01020304;
 
-    printf("in Memory -> \t 0x0%x\n", inMemory);
+    printf("in Memory -> \t 0x0%x   ASSUMED\n", inMemory);
     printf("ntoh -> \t\t 0x0%x\n", ntohlx(normal));
     printf("ntoh(ntoh) -> \t 0x0%x\n", ntohlx(ntohlx(normal)));
     printf("hton -> \t\t 0x0%x\n", htonlx(inMemory));
