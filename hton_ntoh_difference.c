@@ -30,7 +30,7 @@ int main()
     printf("ntoh(ntoh) -> \t 0x0%x\n", ntohlx(ntohlx(normal)));
     printf("hton -> \t\t 0x0%x\n", htonlx(inMemory));
     printf("\nitself -> \t\t\t\t 0x0%x\n", htonlx(ntohlx(inMemory)));
-    printf("htonl(ntohl(..)) ->    0x0%x\n", ntohlx(htonlx(inMemory)));
+    printf("htonl(ntohl(..)) ->      0x0%x\n", ntohlx(htonlx(inMemory)));
 
     return 0;
 }
