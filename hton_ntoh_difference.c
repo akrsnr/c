@@ -1,6 +1,13 @@
 // on middle endian machine
 // https://stackoverflow.com/questions/11617684/when-is-htonlx-ntohlx-or-when-is-converting-to-and-from-network-byte-o
 
+/* ------------
+
+The underlying reason for all this swapping has to do with the network protocols in use, 
+which require the transmitted packets to use network byte order.
+
+---------------  */
+
 #include <stdio.h>
 #include <stdint.h>
 
