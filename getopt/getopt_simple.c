@@ -9,7 +9,7 @@ Non-option argument extraArg
 */
 
 // *** **** optind counts only coomand-line arguments if any matching exists
-// watch out that if the option takes an argument optind is incremented by 2, otherwise 1
+// watch out that if the option takes an argument, optind is incremented by 2, otherwise 1
 
 #include <ctype.h>
 #include <stdio.h>
