@@ -1,5 +1,7 @@
 // Soner
 #include <stdio.h>
+#include <arpa/inet.h>
+
 
 int main() {
     if (ntohl(0x12345678) == 0x12345678) {
