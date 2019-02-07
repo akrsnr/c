@@ -1,0 +1,28 @@
+cmake_minimum_required(VERSION 3.13)
+project(threads C)
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m64 -std=c11 -pedantic -O2 -Wall -Wshadow -Wpointer-arith \
+-Wcast-qual -Wstrict-prototypes -Wmissing-prototypes -pthread")
+
+# my tries
+#Set your directories.  The dot representes the root application folder.
+#Thus my the path to my domain folder:
+set(APP_DOMAIN ./inc)
+
+#Include the directories and now your cpp files will recognize your headers
+include_directories(${APP_DOMAIN})
+
+set(
+        SOURCE_FILES
+        main.c
+        #${APP_DOMAIN}/alt_functions.h
+        ${APP_DOMAIN}/alt_functions.c
+        #${APP_DOMAIN}/error_functions.h
+        ${APP_DOMAIN}/error_functions.c
+        #${APP_DOMAIN}/get_num.h
+        ${APP_DOMAIN}/get_num.c
+        ${APP_DOMAIN}/tlpi_hdr.h
+
+)
+
+add_executable(threads ${SOURCE_FILES})
