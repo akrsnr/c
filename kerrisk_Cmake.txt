@@ -1,8 +1,16 @@
 cmake_minimum_required(VERSION 3.13)
 project(threads C)
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m64 -std=c11 -pedantic -O2 -Wall -Wshadow -Wpointer-arith \
--Wcast-qual -Wstrict-prototypes -Wmissing-prototypes -pthread")
+#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m64 -std=c11 -pedantic -O2 -Wall -Wextra -Wshadow -Wpointer-arith \
+#-Wcast-qual -Wstrict-prototypes -Wmissing-prototypes -Wwrite-strings -pthread")
+
+#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c11 -pedantic -O3 -Weverything -Werror -Wno-padded \
+#-Wno-shorten-64-to-32 -Wno-missing-prototypes -Wno-vla -Wno-missing-noreturn \
+#-Wno-sign-conversion -Wno-unused-parameter -Wwrite-strings -funsigned-char")
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m64 -std=c11 -pedantic -O3 -Wall -Wextra -Wshadow -Wpointer-arith \
+-Wcast-qual -Wstrict-prototypes -Wmissing-prototypes -Wwrite-strings -pthread \
+ -Wchar-subscripts -funsigned-char")
 
 # my tries
 #Set your directories.  The dot representes the root application folder.
@@ -23,6 +31,6 @@ set(
         ${APP_DOMAIN}/get_num.c
         ${APP_DOMAIN}/tlpi_hdr.h
 
-)
+        errors.h)
 
 add_executable(threads ${SOURCE_FILES})
