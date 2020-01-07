@@ -1,0 +1,3 @@
+https://riptutorial.com/c/example/15699/newline-character-is-not-consumed-in-typical-scanf---call
+
+https://web.archive.org/web/20200107062448/https://riptutorial.com/c/example/15699/newline-character-is-not-consumed-in-typical-scanf---call
